@@ -1,3 +1,4 @@
+// Pedro Henrique Salmaze - 13783714
 //criando os objetos dos elementos de texto do form
 
 var nome = document.querySelector("#inputName");
@@ -9,6 +10,9 @@ var emailHelp = document.querySelector("#inputEmailHelp");
 var senha = document.querySelector("#inputPassword")
 var senhaHelp = document.querySelector("#inputPasswordHelp");
 var senhaMeter = document.querySelector("#passStrengthMeter");
+var botao = document.querySelector("#botao")
+var inputResult = document.querySelector("#inputResult");
+let senhaValida = false;
 
 /*declarando o evento listener para o campos de texto do form. 
 Uma vez o foco do campo inputName mude, será chamada a função validarNome*/
@@ -103,16 +107,20 @@ senha.addEventListener('focusout',() =>{
 
     if(senhaTrimada.length < 6 || senhaTrimada.length > 20) {
         senhaHelp.textContent = "Senha inválida. Deve ter entre 6 e 20 caracteres";
+        senhaValida = false;
         senhaHelp.style.color="red";
     } else if (senhaTrimada.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/) == null || senhaTrimada.match(/[0-9]+/) == null || senhaTrimada.match(/[a-zA-Z]+/) == null) {        senhaHelp.textContent = "Senha inválida. Deve ter pelo menos um caractere especial e um número";
         senhaHelp.textContent = "Senha inválida. Deve ter pelo menos um caractere especial, um número e uma letra";
+        senhaValida = false;
         senhaHelp.style.color="red";
     } else if (VerificarNomeeAnoNaSenha(senhaTrimada)) {
         senhaHelp.textContent = "Senha inválida. Não pode conter o nome ou o ano de nascimento";
+        senhaValida = false;
         senhaHelp.style.color="red";
     } else {
+        senhaHelp.style.color="green";
         senhaMeter.value = VerificarForcaDaSenha(senhaTrimada);
-        senhaHelp.textContent = "";
+        senhaValida = true;
     }
 })
 
@@ -127,14 +135,37 @@ function VerificarNomeeAnoNaSenha(senha){
 
 function VerificarForcaDaSenha(senha){
     if(senha.length < 8) {
+        senhaHelp.textContent = "Senha Fraca";
         return 10;
     } else if(senha.length > 8 && senha.length <= 12) {
+        senhaHelp.textContent = "Senha Moderada";
         return 20;
     } else {
         if(senha.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/g).length > 1 && senha.match(/[0-9]+/g).length > 1 && senha.match(/[A-Z]+/g).length > 1) {
+            senhaHelp.textContent = "Senha Forte";
             return 30;
         } else {
+            senhaHelp.textContent = "Senha Moderada";
             return 20;
         }
     }
+}
+
+botao.addEventListener('click', () =>{
+
+    if(VerificarCadastroValido()){
+        inputResult.textContent = 'Cadastro valido';
+    }
+    else{
+        inputResult.textContent = 'Cadastro invalido';
+    }
+})
+
+function VerificarCadastroValido(){
+    if(nomeHelp.textContent === '' && anoHelp.textContent === '' &&
+    emailHelp.textContent === '' && senhaValida){
+        return true;
+    }
+
+    return false;
 }
