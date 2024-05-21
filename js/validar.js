@@ -25,19 +25,19 @@ neste caso o objeto 'nome'
 
 function validarNome(e){ 
     //declaração da expressão regular para definir o formato de um nome válido
-    const regexNome = /^[A-Z][a-z]+ [A-Z][a-z]+$/;
+    const regexNome = /^([A-Z][a-z]*\s)*[A-Z][a-z]*$/;
     
     console.log(e); //impressão em console do objeto evento e
     console.log(e.target.value); //impressão em console do valor do objeto 'nome' que originou o evento   
 
     if(e.target.value.trim().match(regexNome)==null){
         //muda o conteúdo e o estilo do objeto nomeHelp que referencia o elemento html com id=inputNameHelp
-        nomeHelp.textContent = "Formato de nome inválido"; 
+        nomeHelp.textContent = "Nome inválido";
         nomeHelp.style.color="red";
     }
     else if(e.target.value.trim().length < 6){
         //muda o conteúdo e o estilo do objeto nomeHelp que referencia o elemento html com id=inputNameHelp
-        nomeHelp.textContent = "O nome deve ter mais de 6 letras";
+        nomeHelp.textContent = "Nome inválido";
         nomeHelp.style.color="red";
     }
     else{
@@ -59,7 +59,7 @@ ano.addEventListener('focusout', () => {
 
     if(anoTrimado.match(regexAno)==null){
         //muda o conteúdo e o estilo do objeto nomeHelp que referencia o elemento html com id=inputYearHelp
-        anoHelp.textContent = "Formato de ano inválido";
+        anoHelp.textContent = "Ano inválido";
         anoHelp.style.color="red";
     }
     else{
@@ -70,12 +70,12 @@ ano.addEventListener('focusout', () => {
         
         if( parseInt(anoTrimado) > parseInt(date.getFullYear()) - 2 ){
              //muda o conteúdo e o estilo do objeto nomeHelp que referencia o elemento html com id=inputYearHelp
-            anoHelp.textContent = `Ano inválido. O ano não pode ser maior que ${date.getFullYear()-2}.`;
+            anoHelp.textContent = "Ano inválido";
             anoHelp.style.color="red";
         }
         else if( parseInt(anoTrimado) < parseInt(date.getFullYear())-122 ){
              //muda o conteúdo e o estilo do objeto nomeHelp que referencia o elemento html com id=inputYearHelp
-            anoHelp.textContent = `Ano inválido. O ano não pode ser menor que ${date.getFullYear()-124}.`;
+            anoHelp.textContent = "Ano inválido";
             anoHelp.style.color="red";
         }
         else{
@@ -106,15 +106,15 @@ senha.addEventListener('focusout',() =>{
     const senhaTrimada = senha.value.trim();
 
     if(senhaTrimada.length < 6 || senhaTrimada.length > 20) {
-        senhaHelp.textContent = "Senha inválida. Deve ter entre 6 e 20 caracteres";
+        senhaHelp.textContent = "Senha inválida";
         senhaValida = false;
         senhaHelp.style.color="red";
     } else if (senhaTrimada.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/) == null || senhaTrimada.match(/[0-9]+/) == null || senhaTrimada.match(/[a-zA-Z]+/) == null) {        senhaHelp.textContent = "Senha inválida. Deve ter pelo menos um caractere especial e um número";
-        senhaHelp.textContent = "Senha inválida. Deve ter pelo menos um caractere especial, um número e uma letra";
+        senhaHelp.textContent = "Senha inválida";
         senhaValida = false;
         senhaHelp.style.color="red";
     } else if (VerificarNomeeAnoNaSenha(senhaTrimada)) {
-        senhaHelp.textContent = "Senha inválida. Não pode conter o nome ou o ano de nascimento";
+        senhaHelp.textContent = "Senha inválida";
         senhaValida = false;
         senhaHelp.style.color="red";
     } else {
@@ -154,10 +154,10 @@ function VerificarForcaDaSenha(senha){
 botao.addEventListener('click', () =>{
 
     if(VerificarCadastroValido()){
-        inputResult.textContent = 'Cadastro valido';
+        inputResult.textContent = 'Seus dados foram registrados';
     }
     else{
-        inputResult.textContent = 'Cadastro invalido';
+        inputResult.textContent = 'Seus dados não foram registrados';
     }
 })
 
