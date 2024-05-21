@@ -109,7 +109,7 @@ senha.addEventListener('focusout',() =>{
         senhaHelp.textContent = "Senha inválida";
         senhaValida = false;
         senhaHelp.style.color="red";
-    } else if (senhaTrimada.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/) == null || senhaTrimada.match(/[0-9]+/) == null || senhaTrimada.match(/[a-zA-Z]+/) == null) {        senhaHelp.textContent = "Senha inválida. Deve ter pelo menos um caractere especial e um número";
+    } else if (senhaTrimada.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/) == null || senhaTrimada.match(/[0-9]+/) == null || senhaTrimada.match(/[a-zA-Z]+/) == null) {
         senhaHelp.textContent = "Senha inválida";
         senhaValida = false;
         senhaHelp.style.color="red";
@@ -125,12 +125,26 @@ senha.addEventListener('focusout',() =>{
 })
 
 function VerificarNomeeAnoNaSenha(senha){
-    if (nome.value.split(' ').some(v => senha.includes(v)) || senha.includes(ano.value)){
+
+    let anoVazio = false;
+    let nomeVazio = false;
+
+    if(ano.value.trim() === ""){
+        anoVazio = true;
+    }
+    if(nome.value.trim() === ""){
+        nomeVazio = true;
+    }
+
+    if (nome.value.split(' ').some(v => senha.includes(v)) && !nomeVazio){
         return true;
     }
-    else{
-        return false;
+    if (senha.includes(ano.value) && !anoVazio){
+        return true;
     }
+
+
+    return false;
 }
 
 function VerificarForcaDaSenha(senha){
