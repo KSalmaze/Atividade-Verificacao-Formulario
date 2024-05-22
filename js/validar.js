@@ -68,12 +68,12 @@ ano.addEventListener('focusout', () => {
         //obtem o ano atual
         console.log(date.getFullYear()); 
         
-        if( parseInt(anoTrimado) > parseInt(date.getFullYear()) - 2 ){
+        if( parseInt(anoTrimado) > parseInt(date.getFullYear()) ){
              //muda o conteúdo e o estilo do objeto nomeHelp que referencia o elemento html com id=inputYearHelp
             anoHelp.textContent = "Ano inválido";
             anoHelp.style.color="red";
         }
-        else if( parseInt(anoTrimado) < parseInt(date.getFullYear())-122 ){
+        else if( parseInt(anoTrimado) < parseInt(date.getFullYear()) -120 ){
              //muda o conteúdo e o estilo do objeto nomeHelp que referencia o elemento html com id=inputYearHelp
             anoHelp.textContent = "Ano inválido";
             anoHelp.style.color="red";
